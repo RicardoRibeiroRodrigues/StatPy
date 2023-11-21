@@ -1,0 +1,7 @@
+int i
+for i = 0; i < 10; i++:
+    println("i = %d", i)
+
+println("After loop: i = %d", i)
+for int y = 0; y < 10; y++:
+    println("y = %d", y)

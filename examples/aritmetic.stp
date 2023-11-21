@@ -1,0 +1,10 @@
+int x = 0
+int y = 5
+x += 5
+println("x = %d", x)
+x *= y
+println("x = %d", x)
+println("x / y = %d", x / y)
+double z = 5.0
+println("x / z = %lf", x / z)
+println("x % y = %d", x % y)

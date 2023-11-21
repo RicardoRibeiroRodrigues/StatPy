@@ -1,0 +1,11 @@
+fn is_prime(n: int) -> boolean:
+    if n <= 2:
+        return false
+    for int i = 2; i < n; i++: 
+        if n % i == 0:
+            return false
+    return true
+
+for int x = 2; x < 10000; x++:
+    if is_prime(x):
+        println("Prime: %d", x)
