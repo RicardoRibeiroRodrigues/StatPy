@@ -13,8 +13,6 @@
 #include "Declaration.h"
 #include "WhileLoop.h"
 #include "ForLoop.h"
-#include "Array.h"
-#include "Range.h"
 
 namespace statpy {
 
@@ -101,64 +99,6 @@ void VisitorSyntaxCheck::VisitForLoop( ForLoop* expr ) { (void)expr; }
 void VisitorSyntaxCheck::VisitClassDeclaration( ClassDeclaration* expr )
 {
    TypeNames.emplace(expr->getIdentifier()->getName());
-}
-void VisitorSyntaxCheck::VisitArray(Array* expr)
-{
-   auto listexprs = expr->getExpressions();
-   
-   for( auto exp : *listexprs ) {
-      exp->Accept(*this);
-   }
-}
-
-void VisitorSyntaxCheck::VisitArrayAccess(ArrayAccess* expr)
-{
-   if( expr->other != nullptr ) {
-      expr->other->Accept(*this);
-   }
-}
-
-void VisitorSyntaxCheck::VisitArrayAddElement(ArrayAddElement* expr) { (void)expr; }
-
-void VisitorSyntaxCheck::VisitRange(Range* expr)
-{
-   switch( expr->begin->getType() ) {
-      case NodeType::decimal:
-         break;
-      case NodeType::integer:
-         break;
-      case NodeType::expression:
-         break;
-      case NodeType::list:
-         break;
-      case NodeType::variable:
-         break;
-      default:
-         Node::printError("Expression " + expr->begin->toString() + " not allowed in a range definition.");
-         ++syntaxErrors;
-   }
-   switch( expr->end->getType() ) {
-      case NodeType::decimal:
-         break;
-      case NodeType::integer:
-         break;
-      case NodeType::expression:
-         break;
-      case NodeType::list:
-         break;
-      case NodeType::variable:
-         break;
-      default:
-         Node::printError("Expression " + expr->begin->toString() + " not allowed in a range definition.");
-         ++syntaxErrors;
-   }
-
-   if( expr->begin != nullptr ) {
-      expr->begin->Accept(*this);
-   }
-   if( expr->end != nullptr ) {
-      expr->end->Accept(*this);
-   }
 }
 
 }

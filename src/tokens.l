@@ -11,9 +11,11 @@
     extern "C" int yywrap() { }
 
     int yycolumn = 1;
+    int has_error = 0;
     #define YYERROR_VERBOSE 1
     int yyerror(char const * s )
     {
+        has_error = 1;
         printf("ERROR %s in '%s' at line %d col %d\n", s, yytext, yylineno, yycolumn);
         printf("  parsed %s %d.%d-%d.%d\n", yylloc.file_name.c_str(), yylloc.first_line, yylloc.first_column, yylloc.last_line, yylloc.last_column);
         return 1;

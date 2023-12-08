@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "nodes/AstNode.h"
 #include <stack>
 #include "nodes/CodeGenContext.h"
@@ -11,16 +12,33 @@ extern int yydebug;
 extern FILE *yyin;
 extern int yylex_destroy();
 extern std::stack<std::string> fileNames;
-
+extern int has_error;
 typedef struct yy_buffer_state *YY_BUFFER_STATE;
 extern YY_BUFFER_STATE yy_scan_string(const char * str);
 extern void yy_delete_buffer(YY_BUFFER_STATE);
 
 int main(int argc, char **argv)
 {
-    bool quiet = false;
-    bool verbose = true;
-    bool debug = true;
+    bool quiet = true;
+    bool verbose = false;
+    bool debug = false;
+    for (int i = 1; i < argc; i++)
+    {
+        if (strcmp(argv[i], "-q") == 0)
+        {
+            quiet = true;
+            verbose = false;
+        }
+        else if (strcmp(argv[i], "-v") == 0)
+        {
+            verbose = true;
+            quiet = false;
+        }
+        else if (strcmp(argv[i], "-d") == 0)
+        {
+            debug = true;
+        }
+    }
 
     if (argc != 2) {
         std::cout << "Usage: " << argv[0] << " <input_file>" << std::endl;
@@ -32,16 +50,29 @@ int main(int argc, char **argv)
         std::cout << "Error: could not open input file " << argv[1] << std::endl;
         return 1;
     }
-    yydebug = 1;
+    yydebug = debug ? 1 : 0;
+    // yyin = input_file;
+
+    std::string pre_processed = preprocess_code(argv[1]);
+    // Write temp file with pre processed content
+    std::ofstream temp_file;
+    temp_file.open("temp.stp");
+    temp_file << pre_processed;
+    temp_file.close();
+
+    input_file = fopen("temp.stp", "r");
+    if (!input_file) {
+        std::cout << "Error: could not open input file " << argv[1] << std::endl;
+        return 1;
+    }
     yyin = input_file;
 
-    // std::string pre_processed = preprocess_code(argv[1]);
-    // std::cout << pre_processed << std::endl;
-
-    // YY_BUFFER_STATE buffer = yy_scan_buffer(strnig,  sizeof(strnig));
-    // YY_BUFFER_STATE buffer = yy_scan_string(pre_processed.c_str());
     yyparse();
-    // yy_delete_buffer(buffer);
+    if (has_error)
+    {
+        std::cout << "Error: could not parse input file " << argv[1] << std::endl;
+        return 1;
+    }
     
     if (programBlock == nullptr) {
         std::cout << "Error: could not parse input file " << argv[1] << std::endl;
@@ -61,8 +92,6 @@ int main(int argc, char **argv)
                 context.runCode();
             }
         }
-            
-        std::cout << programBlock << std::endl;
     }
 
     if (yyin != nullptr)

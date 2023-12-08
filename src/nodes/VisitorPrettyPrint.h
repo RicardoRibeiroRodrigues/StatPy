@@ -35,10 +35,6 @@ public:
    void VisitWhileLoop(WhileLoop* expr);
    void VisitForLoop(ForLoop* expr);
    void VisitClassDeclaration(ClassDeclaration* expr);
-   void VisitArray(Array* expr);
-   void VisitArrayAccess(ArrayAccess* expr);
-   void VisitArrayAddElement(ArrayAddElement* expr);
-   void VisitRange(Range* expr);
 };
 
 }

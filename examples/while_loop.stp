@@ -2,4 +2,4 @@ int x = 10
 while x >= 0:
     println("x = %d", x)
     x--
-println("After LOOP end x = %d", x)
+println("After while end x = %d", x)

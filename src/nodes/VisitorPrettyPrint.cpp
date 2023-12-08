@@ -11,9 +11,7 @@
 #include "Declaration.h"
 #include "WhileLoop.h"
 #include "ForLoop.h"
-#include "Array.h"
 #include "CompareOperator.h"
-#include "Range.h"
 
 namespace statpy {
 
@@ -216,47 +214,5 @@ void VisitorPrettyPrint::VisitClassDeclaration( ClassDeclaration* expr )
    --indent;
 }
 
-void VisitorPrettyPrint::VisitArray(Array* expr)
-{
-   out << indent_spaces(indent) << "Create array " << expr->toString() << std::endl;
-   ++indent;
-   for( auto e : *expr->getExpressions() ) {
-      e->Accept(*this);
-   }
-   --indent;
-}
-
-void VisitorPrettyPrint::VisitArrayAccess(ArrayAccess* expr)
-{
-   out << indent_spaces(indent) << "Create " << expr->toString() << " to element " << expr->index << std::endl;
-   ++indent;
-   if( expr->other != nullptr ) {
-      expr->other->Accept(*this);
-   }
-   --indent;
-}
-
-void VisitorPrettyPrint::VisitArrayAddElement(ArrayAddElement* expr)
-{
-   out << indent_spaces(indent) << "Create " << expr->toString() << " of " << expr->getExpression()->toString() << " to array " << expr->ident->getName() << std::endl;
-   ++indent;
-   if( expr->getExpression() ) {
-      expr->getExpression()->Accept(*this);
-   }
-   --indent;
-}
-
-void VisitorPrettyPrint::VisitRange(Range* expr)
-{
-   out << indent_spaces(indent) << "Create " << expr->toString() << std::endl;
-   ++indent;
-   if( expr->begin != nullptr ) {
-      expr->begin->Accept(*this);
-   }
-   if( expr->end != nullptr ) {
-      expr->end->Accept(*this);
-   }
-   --indent;
-}
 
 }

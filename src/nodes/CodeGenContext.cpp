@@ -88,6 +88,33 @@ namespace statpy
          i->setName("val");
       builtins.push_back({f, (void *)sinus});
 
+      ft = FunctionType::get(Type::getDoubleTy(getGlobalContext()), argTypesOneDouble, false);
+      f = Function::Create(ft, Function::ExternalLinkage, MAKE_LLVM_EXTERNAL_NAME(cos), getModule());
+      i = f->arg_begin();
+      if (i != f->arg_end())
+         i->setName("val");
+      builtins.push_back({f, (void *)cosinus});
+
+      // Square root function
+      ft = FunctionType::get(Type::getDoubleTy(getGlobalContext()), argTypesOneDouble, false);
+      f = Function::Create(ft, Function::ExternalLinkage, MAKE_LLVM_EXTERNAL_NAME(sqrt), getModule());
+      i = f->arg_begin();
+      if (i != f->arg_end())
+         i->setName("val");
+      builtins.push_back({f, (void *)builtin_sqrt});
+
+      // Power function
+      std::vector<Type *> argTypesTwoDouble(2, Type::getDoubleTy(getGlobalContext()));
+      ft = FunctionType::get(Type::getDoubleTy(getGlobalContext()), argTypesTwoDouble, false);
+      f = Function::Create(ft, Function::ExternalLinkage, MAKE_LLVM_EXTERNAL_NAME(pow), getModule());
+      i = f->arg_begin();
+      if (i != f->arg_end())
+         i->setName("val");
+      ++i;
+      if (i != f->arg_end())
+         i->setName("exp");
+      builtins.push_back({f, (void *)builtin_pow});
+
       std::vector<Type *> argTypesInt8Ptr(1, Type::getInt8PtrTy(getGlobalContext()));
       ft = FunctionType::get(Type::getVoidTy(getGlobalContext()), argTypesInt8Ptr, true);
       f = Function::Create(ft, Function::ExternalLinkage, MAKE_LLVM_EXTERNAL_NAME(print), getModule());
@@ -102,6 +129,33 @@ namespace statpy
       if (i != f->arg_end())
          i->setName("format_str");
       builtins.push_back({f, (void *)println});
+
+      // Time function
+      ft = FunctionType::get(Type::getDoubleTy(getGlobalContext()), {}, false);
+      f = Function::Create(ft, Function::ExternalLinkage, MAKE_LLVM_EXTERNAL_NAME(time), getModule());
+      builtins.push_back({f, (void *)builtin_time});
+
+      // Random function
+      ft = FunctionType::get(Type::getDoubleTy(getGlobalContext()), {}, false);
+      f = Function::Create(ft, Function::ExternalLinkage, MAKE_LLVM_EXTERNAL_NAME(rand), getModule());
+      builtins.push_back({f, (void *)builtin_rand});
+
+      // Double to int function
+      ft = FunctionType::get(Type::getInt32Ty(getGlobalContext()), argTypesOneDouble, false);
+      f = Function::Create(ft, Function::ExternalLinkage, MAKE_LLVM_EXTERNAL_NAME(double_to_int), getModule());
+      i = f->arg_begin();
+      if (i != f->arg_end())
+         i->setName("val");
+      builtins.push_back({f, (void *)builtin_double_to_int});
+
+      // Int to double function
+      ft = FunctionType::get(Type::getDoubleTy(getGlobalContext()), argTypesOneInt, false);
+      f = Function::Create(ft, Function::ExternalLinkage, MAKE_LLVM_EXTERNAL_NAME(int_to_double), getModule());
+      i = f->arg_begin();
+      if (i != f->arg_end())
+         i->setName("val");
+      builtins.push_back({f, (void *)builtin_int_to_double});
+
    }
 
    bool CodeGenContext::generateCode(Block &root)

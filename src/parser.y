@@ -17,7 +17,6 @@
       #include "nodes/WhileLoop.h"
       #include "nodes/ForLoop.h"
       #include "nodes/ClassDeclaration.h"
-      #include "nodes/Array.h"
       #include <stack>
       statpy::Block *programBlock; /* the top level root node of our final AST */
 
@@ -168,6 +167,11 @@ func_decl_args : %empty { $$ = new statpy::VariableList(); }
 return : TRETURN boolean_expr { $$ = new statpy::Return(@$, $2); }
        ;
 
+boolean_expr : expr
+            | expr comparison expr { $<expr>$ = new statpy::CompOperator($1, $2, $3); }
+            | expr TAND expr { $<expr>$ = new statpy::BinaryOp($<expr>1, $<token>2, $<expr>3, @$); }
+            | expr TOR expr  { $<expr>$ = new statpy::BinaryOp($<expr>1, $<token>2, $<expr>3, @$); }
+            ;
 expr : term
       | term TPLUS term    { $<expr>$ = new statpy::BinaryOp($<expr>1, $<token>2, $<expr>3, @$); }
       | term TMINUS term   { $<expr>$ = new statpy::BinaryOp($<expr>1, $<token>2, $<expr>3, @$); }
@@ -193,11 +197,6 @@ literals : TINTEGER { $<expr>$ = new statpy::Integer($1); }
          | TBOOL_LIT { $<expr>$ = new statpy::Boolean($1); }
          ;
 
-boolean_expr : expr
-            | expr comparison expr { $<expr>$ = new statpy::CompOperator($1, $2, $3); }
-            | expr TAND expr { $<expr>$ = new statpy::BinaryOp($<expr>1, $<token>2, $<expr>3, @$); }
-            | expr TOR expr  { $<expr>$ = new statpy::BinaryOp($<expr>1, $<token>2, $<expr>3, @$); }
-            ;
 
 comparison : TEQUAL
            | TCLT

@@ -53,7 +53,6 @@ namespace statpy
       boolean,
       identifier,
       list,
-      range
    };
 
    /*! Base class of all nodes */

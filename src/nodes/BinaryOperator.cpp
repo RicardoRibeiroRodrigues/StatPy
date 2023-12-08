@@ -1,6 +1,5 @@
 #include "BinaryOperator.h"
 #include "CodeGenContext.h"
-#include "Array.h"
 #include "parser.hpp"
 
 using namespace std;
@@ -18,11 +17,6 @@ namespace statpy
          return nullptr;
       }
       auto Ty = rhsValue->getType();
-      if (Ty->isPointerTy() && Ty->getPointerElementType()->isStructTy())
-      {
-         // A class or list object is added.
-         return codeGenAddList(rhsValue, lhsValue, context);
-      }
 
       if (rhsValue->getType() != lhsValue->getType())
       {
@@ -105,58 +99,6 @@ namespace statpy
          s << "unknown";
       }
       return s.str();
-   }
-
-   llvm::Value *BinaryOp::codeGenAddList(llvm::Value *rhsValue, llvm::Value *lhsValue, CodeGenContext &context)
-   {
-      auto rhsTy = rhsValue->getType()->getPointerElementType();
-      auto lhsTy = lhsValue->getType()->getPointerElementType();
-      if (!lhsTy->isStructTy())
-      {
-         Node::printError(location, "First operand is not of a list type.");
-         return nullptr;
-      }
-      if (!rhsTy->isStructTy())
-      {
-         Node::printError(location, "Second operand is not of a list type.");
-         return nullptr;
-      }
-
-      if (getLHS()->getType() != NodeType::identifier)
-      {
-         Node::printError(location, "First operand must be an identifier.");
-         return nullptr;
-      }
-      if (getRHS()->getType() != NodeType::identifier)
-      {
-         Node::printError(location, "Second operand must be an identifier.");
-         return nullptr;
-      }
-      if (op != TPLUS)
-      {
-         Node::printError(location, "Only operator addition is currently supported.");
-         return nullptr;
-      }
-
-      // Construct a new list with the contents of the both.
-      auto rhsCount = rhsTy->getNumContainedTypes();
-      auto lhsCount = lhsTy->getNumContainedTypes();
-      ExpressionList exprList;
-      for (unsigned int i = 0; i < lhsCount; ++i)
-      {
-         auto id = (Identifier *)this->getLHS();
-         ArrayAccess *access = new ArrayAccess(id, i, id->getLocation());
-         exprList.push_back(access);
-      }
-      for (unsigned int i = 0; i < rhsCount; ++i)
-      {
-         auto id = (Identifier *)this->getRHS();
-         ArrayAccess *access = new ArrayAccess(id, i, id->getLocation());
-         exprList.push_back(access);
-      }
-      auto list = new Array(&exprList, location);
-      auto newList = list->codeGen(context);
-      return newList;
    }
 
 } // namespace statpy

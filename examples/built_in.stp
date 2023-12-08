@@ -1,0 +1,29 @@
+# Random number generation!!!
+double random
+for int i = 0; i < 10; i++:
+   random = rand() 
+   println("random number is: %lf", random)
+
+# We can time our code
+double start = time()
+
+for int i = 0; i < 100000; i++:
+   if i % 5000 == 0:
+      println("i = %d", i)
+
+double end = time()
+println("Time taken: %lf", end - start)
+
+int x_int = 25
+double y = 3.0
+
+# Must be a double to use sqrt, pow, sin, cos
+double x = int_to_double(x_int)
+double z = sqrt(x)
+println("sqrt(%lf) = %d", x, double_to_int(z)) # print as int
+z = pow(x, y)
+println("%lf ^ %lf = %lf", x, y, z)
+z = sin(x)
+println("sin(%lf) = %lf", x, z)
+z = cos(x)
+println("cos(%lf) = %lf", x, z)

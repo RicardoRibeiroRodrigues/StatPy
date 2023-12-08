@@ -1,0 +1,19 @@
+# Function to calculate the square of a number
+fn square(x: int) -> int:
+    return x * x
+
+# Main program
+var num = 5
+var result = 0
+
+# For loop to calculate the sum of squares
+for int i = 0; i <= num; i++:
+    if i > 0:
+        result = result + square(i)
+
+println("The sum of squares is %d", result)
+# Conditional statement to check if the result is even or odd
+if result % 2 == 0:
+    println("The sum of squares is even.")
+else:
+    println("The sum of squares is odd.")

@@ -1,10 +1,11 @@
+# This is a comment
 int x = 10
 double y = 10.0
 string z = "x = %d, y = %lf"
 println(z, x, y)
+# Var is a keyword used to infer the type of the variable
 var w = -10.5
 println("w = %lf", w)
 
 boolean b = true
 println("b = %b", b)
-

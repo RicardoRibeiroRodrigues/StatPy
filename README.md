@@ -37,7 +37,7 @@ BINARY_OPERATOR = ARITHMETIC_OPERATOR | "==" | "!=" | "<" | ">" | "<=" | ">=" ;
 UNARY_OPERATOR = "-" | "!" ;
 
 FUNCTION_CALL = IDENTIFIER, "(", [ARGUMENT_LIST], ")" ;
-ARGUMENT_LIST = [BOOL_EXPR], { ",", BOOL_EXPR } ;
+ARGUMENT_LIST = [ BOOL_EXPR ], { ",", BOOL_EXPR } ;
 
 INDENTED_PROGRAM = "\n", INDENT, { STATEMENT }, DEDENT ;
 
@@ -52,6 +52,4 @@ STRING = `"`, { DIGIT | LETTER }, `"` ;
 
 INDENT = "INDENT" ;  (* Token representing an increase in indentation level *)
 DEDENT = "DEDENT" ;  (* Token representing a decrease in indentation level *) ;
-
-
 ```

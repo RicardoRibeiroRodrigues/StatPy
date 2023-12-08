@@ -65,7 +65,6 @@ set(SOURCES_COMMON
             preprocess.cpp
             nodes/buildins.cpp
             nodes/AstNode.cpp
-            nodes/Array.cpp
             nodes/Declaration.cpp
             nodes/FunctionDeclaration.cpp
             nodes/ClassDeclaration.cpp
@@ -75,7 +74,6 @@ set(SOURCES_COMMON
             tokens.l
             parser.y
             nodes/GetOpt.cpp
-            nodes/Range.cpp
             nodes/BinaryOperator.cpp
             nodes/UnaryOperator.cpp
             nodes/CompareOperator.cpp
@@ -90,7 +88,6 @@ set(SOURCES_COMMON
 set(HEADER_COMMON
         nodes/buildins.h
         nodes/AstNode.h
-        nodes/Array.h
         nodes/Declaration.h
         nodes/FunctionDeclaration.h
         nodes/ClassDeclaration.h
@@ -102,7 +99,6 @@ set(HEADER_COMMON
         nodes/BinaryOperator.h
         nodes/UnaryOperator.h
         nodes/CompareOperator.h
-        nodes/Range.h
         nodes/Return.h
         nodes/WhileLoop.h
         nodes/ForLoop.h
