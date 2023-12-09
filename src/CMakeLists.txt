@@ -73,7 +73,6 @@ set(SOURCES_COMMON
             nodes/VisitorPrettyPrint.cpp
             tokens.l
             parser.y
-            nodes/GetOpt.cpp
             nodes/BinaryOperator.cpp
             nodes/UnaryOperator.cpp
             nodes/CompareOperator.cpp
@@ -95,7 +94,6 @@ set(HEADER_COMMON
         nodes/Visitor.h
         nodes/VisitorSyntaxCheck.h
         nodes/VisitorPrettyPrint.h
-        nodes/GetOpt.h
         nodes/BinaryOperator.h
         nodes/UnaryOperator.h
         nodes/CompareOperator.h
