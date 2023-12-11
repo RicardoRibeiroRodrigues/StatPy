@@ -1,8 +1,13 @@
-# APS-Linguagem
+# APS Linguagem - Logica da computação
+
+Criação de uma linguagem de programação do zero!
 
 
 ## EBNF
 
+<details>
+  <summary>Open/Close EBNF</summary>
+  
 ```ebnf
 PROGRAM = { STATEMENT } ;
 STATEMENT = (VARIABLE_DECLARE, "\n" | ASSIGNMENT_STATEMENT, "\n" | IF_STATEMENT | WHILE_LOOP | FOR_LOOP | FUNCTION_DECLARE | RETURN_STATEMENT, "\n" | FUNCTION_CALL, "\n") ;
@@ -55,3 +60,7 @@ STRING = `"`, { DIGIT | LETTER }, `"` ;
 INDENT = "INDENT" ;  (* Token representing an increase in indentation level *)
 DEDENT = "DEDENT" ;  (* Token representing a decrease in indentation level *) ;
 ```
+
+</details>
+
+
