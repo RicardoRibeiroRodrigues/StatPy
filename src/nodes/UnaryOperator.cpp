@@ -28,7 +28,8 @@ namespace statpy
          // If rhs is 1 bit, then we can just xor with 1
          if (rhsValue->getType()->isIntegerTy(1))
          {
-            lhsValue = ConstantInt::get(IntegerType::get(context.getGlobalContext(), context.getGenericIntegerType()->getIntegerBitWidth()), StringRef("1"), 10);
+            // lhsValue = ConstantInt::get(IntegerType::get(context.getGlobalContext(), context.getGenericIntegerType()->getIntegerBitWidth()), StringRef("1"), 10);
+            lhsValue = ConstantInt::get(IntegerType::get(context.getGlobalContext(), 1), 1, false); // Create a 1-bit integer with value 1
          } else {
             // Otherwise, we XOR with a mask of all 1s
             lhsValue = ConstantInt::get(IntegerType::get(context.getGlobalContext(), context.getGenericIntegerType()->getIntegerBitWidth()), StringRef("-1"), 10);

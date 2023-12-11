@@ -38,9 +38,18 @@ int main(int argc, char **argv)
         {
             debug = true;
         }
+        else if (strcmp(argv[i], "-h") == 0)
+        {
+            std::cout << "Usage: " << argv[0] << " <input_file> [-q] [-v] [-d]" << std::endl;
+            std::cout << "Options:" << std::endl;
+            std::cout << "  -q: quiet mode, no output" << std::endl;
+            std::cout << "  -v: verbose mode, print generated code" << std::endl;
+            std::cout << "  -d: debug mode, print debug info" << std::endl;
+            return 0;
+        }
     }
 
-    if (argc != 2) {
+    if (argc < 2) {
         std::cout << "Usage: " << argv[0] << " <input_file>" << std::endl;
         return 1;
     }
@@ -90,6 +99,10 @@ int main(int argc, char **argv)
             if (context.generateCode(*programBlock))
             {
                 context.runCode();
+                if (context.getErrorCount() > 0)
+                {
+                    std::cout << "Error: in " << argv[1] << " use -v option for detailed debug" << std::endl;
+                }
             }
         }
     }

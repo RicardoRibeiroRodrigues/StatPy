@@ -1,0 +1,27 @@
+var a = 10
+println("a is %d", a)
+
+if a > 5:
+    println("a is greater than 5")
+else:
+    println("a is not greater than 5")
+
+if !(a > 100):
+    println("a is not greater than 100")
+else:
+    println("a is greater than 5")
+ 
+if a > 5 and a < 15:
+    println("a is between 5 and 15")
+if a < 0 or a > 100:
+    println("a is less than 0 or greater than 100")
+
+if a > 5 or a < 0:
+    println("a is greater than 5 or less than 0")
+else:
+    println("a is between 0 and 5")
+
+if a > 5 and a < 0:
+    println("a is greater than 5 and less than 0 ??????")
+else:
+    println("a makes sense")

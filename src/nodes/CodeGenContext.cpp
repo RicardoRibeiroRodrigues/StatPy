@@ -367,6 +367,9 @@ namespace statpy
       return ptr;
    }
 
+   // // Find all vars in a class
+   KlassValueNames CodeGenContext::getKlassValueNames(std::string klass) { return classAttributes[klass]; }
+
    std::string CodeGenContext::getType(std::string varName)
    {
       if (varName == "self")

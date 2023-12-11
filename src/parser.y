@@ -85,7 +85,7 @@
    calling an (NIdentifier*). It makes the compiler happy.
  */
 %type <ident> ident
-%type <expr> expr boolean_expr literals factor term
+%type <expr> expr boolean_expr literals factor term bool_term relation_expr
 %type <varvec> func_decl_args
 %type <exprvec> call_args
 %type <block> program stmts block 
@@ -167,10 +167,16 @@ func_decl_args : %empty { $$ = new statpy::VariableList(); }
 return : TRETURN boolean_expr { $$ = new statpy::Return(@$, $2); }
        ;
 
-boolean_expr : expr
+boolean_expr : bool_term | 
+            bool_term TOR bool_term { $<expr>$ = new statpy::BinaryOp($<expr>1, $<token>2, $<expr>3, @$); }
+            ;
+
+bool_term : relation_expr |
+            relation_expr TAND relation_expr { $<expr>$ = new statpy::BinaryOp($<expr>1, $<token>2, $<expr>3, @$); }
+            ;
+
+relation_expr : expr
             | expr comparison expr { $<expr>$ = new statpy::CompOperator($1, $2, $3); }
-            | expr TAND expr { $<expr>$ = new statpy::BinaryOp($<expr>1, $<token>2, $<expr>3, @$); }
-            | expr TOR expr  { $<expr>$ = new statpy::BinaryOp($<expr>1, $<token>2, $<expr>3, @$); }
             ;
 expr : term
       | term TPLUS term    { $<expr>$ = new statpy::BinaryOp($<expr>1, $<token>2, $<expr>3, @$); }
