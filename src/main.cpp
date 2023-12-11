@@ -107,6 +107,10 @@ int main(int argc, char **argv)
         }
     }
 
+
+    // Delete temp file
+    remove("temp.stp");
+
     if (yyin != nullptr)
     {
         fclose(yyin);
