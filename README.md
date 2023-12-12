@@ -101,7 +101,7 @@ Para rodar a linguagem, existem duas formas:
 
 ### Baixar o binário do release
 
-Foi disponibilizado no repositório um binário compilado para linux, baixando ele e dando permissões de execução, já deve ser possível usar o compilador desenvolvido para a linguagem.
+Foi disponibilizado [no repositório um binário compilado para linux](https://github.com/RicardoRibeiroRodrigues/APS-Linguagem/releases), baixando ele e dando permissões de execução, já deve ser possível usar o compilador desenvolvido para a linguagem.
 
 ### Compilar manualmente
 
