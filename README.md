@@ -1,9 +1,6 @@
-# APS Linguagem - Logica da computação
+# Creation of a programming language from scratch!
 
-Criação de uma linguagem de programação do zero!
-
-
-## EBNF
+## EBNF - Defining the syntax
 
 <details>
   <summary>Open/Close EBNF</summary>
@@ -63,10 +60,10 @@ DEDENT = "DEDENT" ;  (* Token representing a decrease in indentation level *) ;
 
 </details>
 
-## Exemplo
-Existem diversos exemplos de código, ilustrando todas as features da linguagem na pasta [examples](https://github.com/RicardoRibeiroRodrigues/APS-Linguagem/blob/main/examples/)
+## Example
+There are several code examples illustrating all language features in the [examples](https://github.com/RicardoRibeiroRodrigues/APS-Linguagem/blob/main/examples/) folder.
 
-Podemos visualizar abaixo um exemplo que utiliza algumas features e portanto é um exemplo bem completo:
+Below is an example that uses some features, making it a comprehensive example:
 ```stp
 # Function to calculate the square of a number
 fn square(x: int) -> int:
@@ -89,71 +86,71 @@ else:
     println("The sum of squares is odd.")
 ```
 
-Este código:
-- Define uma função para calcular o quadrado de um inteiro.
-- Faz um loop que soma em result o quadrado de i de 1 até num (5).
-- Printa a soma dos quadrados.
-- Printa se o resultado é par ou ímpar.
+This code:
 
-## Rodar o projeto
+- Defines a function to calculate the square of an integer.
+- Uses a loop to add the square of i from 1 to num (5) to the result.
+- Prints the sum of squares.
+- Prints whether the result is even or odd.
 
-Para rodar a linguagem, existem duas formas:
+## Run the Project
 
-### Baixar o binário do release
+To run the language, there are two ways:
 
-Foi disponibilizado [no repositório um binário compilado para linux](https://github.com/RicardoRibeiroRodrigues/APS-Linguagem/releases), baixando ele e dando permissões de execução, já deve ser possível usar o compilador desenvolvido para a linguagem.
+### Download the Release Binary
 
-### Compilar manualmente
+A compiled binary for [Linux has been provided in the repository](https://github.com/RicardoRibeiroRodrigues/APS-Linguagem/releases). Download it, grant execution permissions, and you should be able to use the language compiler.
 
-1. Instalar o cmake:
+### Compile Manually
+
+1. Install cmake:
 ```bash
 sudo apt install cmake
 ```
-2. Instalar o LLVM 14.
+2. Install LLVM 14.
 ```bash
 sudo apt install llvm-14
 ```
-3. Instalar o flex e o bison
+3. Install **flex** and **bison**.
 ```bash
 sudo apt-get install flex
 sudo apt-get install bison
 ```
-4. Rodar o comando abaixo para criar a pasta build:
+4. Run the following command to create the build folder:
 ```bash
 cmake -B build -S .
 ```
-5. Executar o make do projeto:
+5. Execute the make command in the project:
 ```bash
 cd build
 make
 ```
-6. Feito isso você deve ter dentro da pasta `build/src/` o executável `statipy`
+6. After that, you should have the `statipy` executable inside the `build/src/` folder.
 
-OBS:
-Existe a possibilidade de o cmake não reconhecer o LLVM 14 instalado, neste caso, siga os seguintes passos:
-1. Rode o comando `llvm-config --cmakedir` e anote o caminho da saída
-2. exporte para o env o caminho do output anterior (exemplo):
+NOTE: There is a possibility that cmake may not recognize the installed LLVM 14. In that case, follow these steps:
+1.Run the command `llvm-config --cmakedir` and note the output path.
+2. Export the output path to the environment variable (example):
 ```bash
 export LLVM_ROOT="/usr/lib/llvm-14"
 ```
-(Não deve ser incluida a parte do `lib/cmake/llvm`)
+(Exclude the `lib/cmake/llvm` part)
 
-### Opções do compilador
+### Compiler Options
 
-O uso do compilador deve ser feito da seguinte maneira:
+The compiler usage should be as follows:
 ```bash
 ./statipy <input_file> [-q] [-v] [-d]
 ```
 
-Sendo:
-- '-q': Modo quieto, a geração de código não vai printar todas as etapas.
-- '-d': Modo de debug, tanto do parser como da geração de código.
-- '-v': Modo verbose da geração de código, todas as etapas da geração serão printadas no console.
+Where:
+- '-q': Quiet mode, code generation will not print all steps.
+- '-d': Debug mode, for both parser and code generation.
+- '-v': Verbose mode for code generation, all generation steps will be printed to the console.
 
 ## Licença
 
-Este projeto está sob licença MIT [veja mais](LICENSE).
+This project is under the MIT license [see more](LICENSE).
 
 ## Referências
-- Parser e lexer baseados em https://gnuu.org/2009/09/18/writing-your-own-toy-compiler/
-- AST e geração de código adaptados de https://github.com/xkbeyer/liquid
+- Parser and lexer based on https://gnuu.org/2009/09/18/writing-your-own-toy-compiler/
+- AST and code generation adapted from https://github.com/xkbeyer/liquid
